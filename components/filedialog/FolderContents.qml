@@ -190,7 +190,9 @@ Item {
 
             Component.onCompleted: {
                 const file = item.modelData;
-                if (file.isImage)
+                if (file.thumbnailPath)
+                    source = Qt.resolvedUrl(file.thumbnailPath);
+                else if (file.isImage)
                     source = Qt.resolvedUrl(file.path);
                 else if (!file.isDir)
                     source = Quickshell.iconPath(file.mimeType.replace("/", "-"), "application-x-zerosize");
