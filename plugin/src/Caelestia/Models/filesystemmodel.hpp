@@ -27,6 +27,7 @@ class FileSystemEntry : public QObject {
     Q_PROPERTY(bool isDir READ isDir CONSTANT)
     Q_PROPERTY(bool isImage READ isImage CONSTANT)
     Q_PROPERTY(QString mimeType READ mimeType CONSTANT)
+    Q_PROPERTY(QString thumbnailPath READ thumbnailPath CONSTANT)
 
 public:
     explicit FileSystemEntry(const QString& path, const QString& relativePath, QObject* parent = nullptr);
@@ -41,6 +42,7 @@ public:
     [[nodiscard]] bool isDir() const;
     [[nodiscard]] bool isImage() const;
     [[nodiscard]] QString mimeType() const;
+    [[nodiscard]] QString thumbnailPath() const;
 
     void updateRelativePath(const QDir& dir);
 
@@ -58,6 +60,9 @@ private:
 
     mutable QString m_mimeType;
     mutable bool m_mimeTypeInitialised;
+
+    mutable QString m_thumbnailPath;
+    mutable bool m_thumbnailPathInitialised;
 };
 
 class FileSystemModel : public QAbstractListModel {
