@@ -12,6 +12,16 @@
 
 https://github.com/user-attachments/assets/0840f496-575c-4ca6-83a8-87bb01a85c5f
 
+## ChrisBlackoutDev Fork Note
+
+This checkout is ChrisBlackoutDev's personal Caelestia shell fork. For this desktop, do not publish or consume a personal shell package through the AUR. The rice/bootstrap repo at `/home/kensa/.local/share/caelestia` consumes this fork through its local PKGBUILD:
+
+```text
+bootstrap/pkgbuilds/caelestia-shell-fork/PKGBUILD
+```
+
+Future agents should read `AGENTS.md` in this repo before changing shell code or package pins. The upstream installation notes below are kept for attribution and general reference, not as the personal desktop workflow.
+
 ## Components
 
 -   Widgets: [`Quickshell`](https://quickshell.outfoxxed.me)
