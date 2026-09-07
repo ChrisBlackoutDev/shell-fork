@@ -12,6 +12,9 @@
 
 https://github.com/user-attachments/assets/0840f496-575c-4ca6-83a8-87bb01a85c5f
 
+> [!NOTE]
+> This fork's maintained behavior, compatibility routes, and packaging policy are documented in [FORK.md](FORK.md).
+
 ## Components
 
 -   Widgets: [`Quickshell`](https://quickshell.outfoxxed.me)

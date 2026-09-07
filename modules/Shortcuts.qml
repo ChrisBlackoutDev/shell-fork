@@ -140,7 +140,21 @@ Scope {
             WindowFactory.create();
         }
 
+        function openPage(page: string): void {
+            if (!WindowFactory.createForRoute(page))
+                console.warn(lc, `Nexus page "${page}" does not exist`);
+        }
+
         target: "nexus"
+    }
+
+    IpcHandler {
+        function openPane(pane: string): void {
+            if (!WindowFactory.createForRoute(pane))
+                console.warn(lc, `Control-center compatibility pane "${pane}" does not exist`);
+        }
+
+        target: "controlCenter"
     }
 
     IpcHandler {

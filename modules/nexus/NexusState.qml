@@ -17,10 +17,18 @@ QtObject {
     property string selectedNetworkSsid
     property string selectedEthernetInterface
     property bool networkDetailsFromSaved
+    property bool preserveSubPageStack: false
 
     signal close
     signal subPageOpened(idx: int)
     signal subPageClosed
+
+    function navigate(pageIdx: int, subPages: list<int>): void {
+        preserveSubPageStack = true;
+        currentPageIdx = pageIdx;
+        subPageIdxStack = [...subPages];
+        preserveSubPageStack = false;
+    }
 
     function openSubPage(idx: int): void {
         subPageIdxStack.push(idx);
@@ -32,5 +40,8 @@ QtObject {
         subPageIdxStack.pop();
     }
 
-    onCurrentPageIdxChanged: subPageIdxStack.length = 0
+    onCurrentPageIdxChanged: {
+        if (!preserveSubPageStack)
+            subPageIdxStack.length = 0;
+    }
 }

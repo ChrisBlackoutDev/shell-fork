@@ -1,7 +1,10 @@
 #include "filesystemmodel.hpp"
 
+#include <qcryptographichash.h>
 #include <qdiriterator.h>
+#include <qstandardpaths.h>
 #include <qtconcurrentrun.h>
+#include <qurl.h>
 
 #include <algorithm>
 #include <optional>
@@ -18,7 +21,8 @@ FileSystemEntry::FileSystemEntry(const QString& path, QString relativePath, QObj
     , m_path(path)
     , m_relativePath(std::move(relativePath))
     , m_isImageInitialised(false)
-    , m_mimeTypeInitialised(false) {}
+    , m_mimeTypeInitialised(false)
+    , m_thumbnailPathInitialised(false) {}
 
 QString FileSystemEntry::path() const {
     return m_path;
@@ -68,6 +72,26 @@ QString FileSystemEntry::mimeType() const {
         m_mimeTypeInitialised = true;
     }
     return m_mimeType;
+}
+
+QString FileSystemEntry::thumbnailPath() const {
+    if (!m_thumbnailPathInitialised) {
+        const auto cacheDir = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
+        const auto uriHash =
+            QCryptographicHash::hash(QUrl::fromLocalFile(m_path).toEncoded(), QCryptographicHash::Md5).toHex();
+        const auto thumbnailName = QString::fromLatin1(uriHash) + u".png"_s;
+
+        for (const auto& size : { u"xx-large"_s, u"x-large"_s, u"large"_s, u"normal"_s }) {
+            const auto path = cacheDir + u"/thumbnails/"_s + size + u"/"_s + thumbnailName;
+            if (QFileInfo::exists(path)) {
+                m_thumbnailPath = path;
+                break;
+            }
+        }
+
+        m_thumbnailPathInitialised = true;
+    }
+    return m_thumbnailPath;
 }
 
 void FileSystemEntry::updateRelativePath(const QDir& dir) {

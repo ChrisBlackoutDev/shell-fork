@@ -14,6 +14,18 @@ Singleton {
         nexusComp.createObject(parent ?? dummy, props);
     }
 
+    function createForRoute(route: string): bool {
+        const resolved = PageRegistry.resolveRoute(route);
+        if (!resolved)
+            return false;
+
+        create(null, {
+            initialPageIndex: resolved.pageIndex,
+            initialSubPages: resolved.subPages
+        });
+        return true;
+    }
+
     QtObject {
         id: dummy
     }
@@ -23,6 +35,9 @@ Singleton {
 
         FloatingWindow {
             id: win
+
+            property int initialPageIndex: 0
+            property list<int> initialSubPages: []
 
             color: Colours.tPalette.m3surface
             surfaceFormat.opaque: false
@@ -49,6 +64,7 @@ Singleton {
                 anchors.fill: parent
                 nState.screen: win.screen
                 nState.isWindow: true
+                Component.onCompleted: nState.navigate(win.initialPageIndex, win.initialSubPages)
                 onClose: win.destroy()
             }
 

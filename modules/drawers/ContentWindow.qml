@@ -22,11 +22,11 @@ StyledWindow {
     readonly property ScreenState screenState: ShellState.forScreen(screen)
 
     readonly property HyprlandMonitor monitor: Hypr.monitorFor(screen)
-    readonly property bool hasSpecialWorkspace: (monitor?.lastIpcObject.specialWorkspace?.name.length ?? 0) > 0
+    readonly property bool hasSpecialWorkspace: (monitor?.lastIpcObject?.specialWorkspace?.name.length ?? 0) > 0 // qmllint disable redundant-optional-chaining
     readonly property bool hasFullscreenOnNormalWs: monitor?.activeWorkspace?.toplevels.values.some(t => t.lastIpcObject.fullscreen > 1) ?? false
     readonly property bool hasFullscreen: {
         if (hasSpecialWorkspace) {
-            const specialName = monitor?.lastIpcObject.specialWorkspace?.name;
+            const specialName = monitor?.lastIpcObject?.specialWorkspace?.name; // qmllint disable redundant-optional-chaining
             if (!specialName)
                 return false;
             const specialWs = Hypr.workspaces.values.find(ws => ws.name === specialName);
@@ -48,7 +48,7 @@ StyledWindow {
         if (focusGrab.active || panels.popouts.isDetached)
             return 0;
 
-        if (monitor?.lastIpcObject.specialWorkspace?.name || monitor?.activeWorkspace?.lastIpcObject.windows > 0)
+        if (monitor?.lastIpcObject?.specialWorkspace?.name || (monitor?.activeWorkspace?.lastIpcObject?.windows ?? 0) > 0) // qmllint disable redundant-optional-chaining
             return 0;
 
         const thresholds = [];
