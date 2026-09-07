@@ -1,106 +1,10 @@
 pragma Singleton
 
 import QtQuick
+import Caelestia.I18n
 
 QtObject {
     id: root
-
-    readonly property list<var> pages: [
-        // Appearance
-        {
-            route: "appearance",
-            label: qsTr("Wallpaper & style"),
-            icon: "palette",
-            description: qsTr("Wallpaper, fonts, colours"),
-            category: "appearance"
-        },
-
-        // Connectivity
-        {
-            route: "display",
-            label: qsTr("Display"),
-            icon: "monitor",
-            description: qsTr("Output configuration"),
-            category: "connectivity"
-        },
-        {
-            route: "network",
-            label: qsTr("Network"),
-            icon: "wifi",
-            description: qsTr("Wi-Fi, ethernet, VPN"),
-            category: "connectivity"
-        },
-        {
-            route: "bluetooth",
-            label: qsTr("Connected devices"),
-            icon: "devices_other",
-            description: qsTr("Bluetooth, pairing"),
-            category: "connectivity",
-            noFill: true
-        },
-        {
-            route: "audio",
-            label: qsTr("Audio"),
-            icon: "volume_up",
-            description: qsTr("App volumes, sound devices"),
-            category: "connectivity"
-        },
-
-        // System
-        {
-            route: "updates",
-            label: qsTr("Updates"),
-            icon: "update",
-            description: qsTr("System updates"),
-            category: "system"
-        },
-        {
-            route: "plugins",
-            label: qsTr("Plugins"),
-            icon: "extension",
-            description: qsTr("Manage plugins"),
-            category: "system"
-        },
-
-        // Shell
-        {
-            route: "panels",
-            label: qsTr("Panels"),
-            icon: "dock_to_bottom",
-            description: qsTr("Dashboard, taskbar, launcher, sidebar"),
-            category: "shell"
-        },
-        {
-            route: "apps",
-            label: qsTr("Apps"),
-            icon: "apps",
-            description: qsTr("Default apps, favourites, hidden apps"),
-            category: "shell"
-        },
-        {
-            route: "services",
-            label: qsTr("Services"),
-            icon: "build",
-            description: qsTr("Poll intervals, lyrics backend"),
-            category: "shell"
-        },
-        {
-            route: "language",
-            label: qsTr("Language & region"),
-            icon: "globe",
-            description: qsTr("UI language, weather location, display units"),
-            category: "shell"
-        },
-
-        // About
-        {
-            route: "about",
-            label: qsTr("About"),
-            icon: "info",
-            description: qsTr("System information, credits"),
-            category: "about"
-        },
-    ]
 
     readonly property var compatibilityRoutes: ({
             taskbar: {
@@ -120,6 +24,102 @@ QtObject {
                 subPages: [1]
             }
         })
+    readonly property list<var> pages: [
+        // Appearance
+        {
+            route: "appearance",
+            label: Tr.tr("Wallpaper & style"),
+            icon: "palette",
+            description: Tr.tr("Wallpaper, fonts, colours"),
+            category: "appearance"
+        },
+
+        // Connectivity
+        {
+            route: "display",
+            label: Tr.tr("Display"),
+            icon: "monitor",
+            description: Tr.tr("Output configuration"),
+            category: "connectivity"
+        },
+        {
+            route: "network",
+            label: Tr.tr("Network"),
+            icon: "wifi",
+            description: Tr.tr("Wi-Fi, ethernet, VPN"),
+            category: "connectivity"
+        },
+        {
+            route: "bluetooth",
+            label: Tr.tr("Connected devices"),
+            icon: "devices_other",
+            description: Tr.tr("Bluetooth, pairing"),
+            category: "connectivity",
+            noFill: true
+        },
+        {
+            route: "audio",
+            label: Tr.tr("Audio"),
+            icon: "volume_up",
+            description: Tr.tr("App volumes, sound devices"),
+            category: "connectivity"
+        },
+
+        // System
+        {
+            route: "updates",
+            label: Tr.tr("Updates"),
+            icon: "update",
+            description: Tr.tr("System updates"),
+            category: "system"
+        },
+        {
+            route: "plugins",
+            label: Tr.tr("Plugins"),
+            icon: "extension",
+            description: Tr.tr("Manage plugins"),
+            category: "system"
+        },
+
+        // Shell
+        {
+            route: "panels",
+            label: Tr.tr("Panels"),
+            icon: "dock_to_bottom",
+            description: Tr.tr("Dashboard, taskbar, launcher, sidebar"),
+            category: "shell"
+        },
+        {
+            route: "apps",
+            label: Tr.tr("Apps"),
+            icon: "apps",
+            description: Tr.tr("Default apps, favourites, hidden apps"),
+            category: "shell"
+        },
+        {
+            route: "services",
+            label: Tr.tr("Services"),
+            icon: "build",
+            description: Tr.tr("Poll intervals, lyrics backend"),
+            category: "shell"
+        },
+        {
+            route: "language",
+            label: Tr.tr("Language & region"),
+            icon: "globe",
+            description: Tr.tr("UI language, weather location, display units"),
+            category: "shell"
+        },
+
+        // About
+        {
+            route: "about",
+            label: Tr.tr("About"),
+            icon: "info",
+            description: Tr.tr("System information, credits"),
+            category: "about"
+        },
+    ]
 
     function resolveRoute(route: string): var {
         const compatibility = compatibilityRoutes[route];
